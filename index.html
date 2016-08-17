@@ -1,37 +1,36 @@
-
 <!DOCTYPE html>
-<html>
-
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<html lang="en">
+<head> 
+  <title>Bootstrap Case</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
        
         function postToGoogle() {
-            $.mobile.changePage("#");
-            var Remark = $('#Remark').val();
+            //$.mobile.changePage("#");
+            //var Remark = $('#Remark').val();
             var Description = $('#Description').val();
             var Type = $('#Type').val();
-            var urllink = $('#urllink').val();
-            var now = new Date(); // for now
-            console.log(Type );
+            //var urllink = $('#urllink').val();
+            var now = new Date(); // for now//console.log(Type );
             
             $.ajax({
                 url: "https://docs.google.com/forms/d/1Z6035zM2q9BiHx9OgBVDBlIHYiVZcUG317vdIF2x8jM/formResponse",
                 data: {
-                    "entry.1865634441": Remark,
+                    "entry.1865634441": '',
                     "entry.900584618": Description,
                     "entry.171706506":Type,
                     "entry.880278913":now,
-                    "entry.1201077176":urllink
+                    "entry.1201077176":''
                 },
                 type: "POST",
                 dataType: "xml",
                 statusCode: {
                     0: function() {
-                        window.location.replace("thankyou.html");
+                        window.location.replace("renhk.github.io/thankyou.html");
                     },
                     200: function() {
                         window.location.replace("https://renhk.github.io/thankyou.html");
@@ -41,21 +40,59 @@
             
         }
     </script>
+	<style>
+	.rowcss{
+	padding-top:1em;
+	padding-left:1em;
+	padding-right:1em;
+	}
+	</style>
 </head>
-
 <body>
 
-    <div data-role="page">
-        <div data-role="header">
-            <h1>Tony</h1>
-        </div>
-
-        <div data-role="main" class="ui-content">
-            <form id="formRequest" method="post" >
-                <fieldset data-role="controlgroup">
-
-                    Type:<br/>
-                    <select id= "Type" >
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Tony Dev</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Page 1-1</a></li>
+            <li><a href="#">Page 1-2</a></li>
+            <li><a href="#">Page 1-3</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Page 2</a></li>
+        <li><a href="#">Page 3</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+  
+  
+<div class="container">
+  <div class="row">
+  <div class="panel panel-primary">
+      <div class="panel-heading" style="font-weight: bold;" >Record</div>
+      <div class="panel-body">
+		<div class="row" style="padding-left:1em; padding-right:1em;" >
+		<div style="font-weight: bold;" >Type:</div>
+	   <br/>
+                    <select id= "Type" class="form-control" >
                       <option value="Others">Others</option>
                       <option value="Daily Record">Daily Record</option>
                       <option value="Wechat Public">Wechat Public</option>
@@ -63,23 +100,25 @@
                       <option value="Note">Note</option>
                       <option value="Useful Link">Useful Link </option>
                     </select>
-                    <br/> Remark:
-
-                    <br/>
-                    <input type="text" name="fname" id="Remark">
-                    <br/> Description:
-
-                    <br/>
-                    <textarea rows="8" id="Description"></textarea>
-                      <br/> URL:
-                    <br/>
-                    <textarea rows="3" id="urllink"></textarea>
-                </fieldset>
-                <button type="button"  onclick="postToGoogle()">Submit</button>
-            </form>
-        </div>
+		</div>
+		
+		<div class="row rowcss">
+		<div style="font-weight: bold;" >Description:</div>
+		</div>
+		
+		<div class="row rowcss">
+		
+	  <textarea rows="8" id="Description" class="form-control" ></textarea>
+		</div>
+		
+		<div class="row rowcss">
+		  <button type="button"  onclick="postToGoogle()" class="btn btn-info" >Submit</button>
+		</div>
+		
+	  </div>
     </div>
+  </div>
+</div>
 
-</body> 
-
+</body>
 </html>
