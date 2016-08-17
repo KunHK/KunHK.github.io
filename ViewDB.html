@@ -9,14 +9,17 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
-
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css">
+   
+	<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.bootstrap.min.css">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-
-
+	<script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+	<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.bootstrap.min.js"></script>
+	
     <script type="text/javascript">
         google.load('visualization', '1', {
             packages: ['table']
@@ -48,7 +51,7 @@
 
 
         function DrawTable(ContentData) {
-            var tablehtml = '<table  id="ResultData" class="table table-striped table-bordered" cellspacing="0" width="100%" > <thead><tr><th>Time</th><th>Content</th> </tr></thead>';
+            var tablehtml = '<table  id="ResultData" class="table table-striped table-bordered" cellspacing="0" width="100%" > <thead><tr><th style="display:none" >No</th><th>Time</th><th>Content</th> </tr></thead>';
             tablehtml += '<tbody>';
             var dataList = [];
             $.each(ContentData, function(key, value) {
@@ -57,20 +60,36 @@
                 }
             });
 
-
+			var CountNum=dataList[1].length;
             do {
-                var tempobj = dataList[1].pop(); // Time console.log(tempobj.c[0].f); //Content  console.log(tempobj.c[3].v);
+                var tempobj = dataList[1].pop(); // Time console.log(tempobj.c[0].f); //Content  
+				
+				
                 if (tempobj.c[3] != null) {
-                    tablehtml += '<tr><td>' + tempobj.c[0].f + '</td><td>' + tempobj.c[3].v + '</td></tr>';
+				console.log(tempobj.c[3].v);
+				console.log(CountNum);
+				CountNum--
+                  tablehtml += '<tr><td style="display:none" >'+CountNum+'</td><td>' + tempobj.c[0].f + '</td><td>' + tempobj.c[3].v + '</td></tr>';
                 }
 
             } while (dataList[1].length > 0);
-
-            $('#ResultTable').html(tablehtml);
+			
+			tablehtml += '</tbody></table>';
+			
+           $('#ResultTable').html(tablehtml);
 
             $('#ResultData').DataTable({
-                "dom": '<"top">rt<"bottom"fpil><"clear">',
-                "iDisplayLength": 50
+			 "order": [[ 0, "desc" ]],
+                "dom": '<"top">rt<"bottom"Bfpil><"clear">',
+                "iDisplayLength": 50,
+				buttons: [
+					{
+						text: 'Write New One',
+						action: function ( e, dt, node, config ) {
+							window.location.href = "http://renhk.github.io";// console.log( 'Button activated' );
+						}
+					}
+				]
             });
 
 
