@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>ViewDB</title> 
+    <title>ViewDB</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css">
 
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.bootstrap.min.css">
-
+	<link rel="stylesheet" href="https://cdn.rawgit.com/LikeHongKong/Font-Awesome/master/css/font-awesome.min.css" >
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
@@ -27,6 +27,8 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function() {
+			var tempHTML='<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i> Loading...';
+			$('#ResultTable').html(tempHTML);
             google.setOnLoadCallback(drawVisualization);
             $('body').prepend('<a href="#" class="back-to-top">Back to Top</a>');
 
