@@ -9,17 +9,17 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css">
-   
-	<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.bootstrap.min.css">
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-	<script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
-	<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.bootstrap.min.js"></script>
-	
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.bootstrap.min.js"></script>
+
     <script type="text/javascript">
         google.load('visualization', '1', {
             packages: ['table']
@@ -28,7 +28,19 @@
     <script type="text/javascript">
         $(document).ready(function() {
             google.setOnLoadCallback(drawVisualization);
+            $('body').prepend('<a href="#" class="back-to-top">Back to Top</a>');
+
+            var amountScrolled = 300;
+            $(window).scroll(function() {
+                if ($(window).scrollTop() > amountScrolled) {
+                    $('a.back-to-top').fadeIn('slow');
+                } else {
+                    $('a.back-to-top').fadeOut('slow');
+                }
+            });
+
         });
+
         var visualization;
 
 
@@ -60,38 +72,43 @@
                 }
             });
 
-			var CountNum=dataList[1].length;
+            var CountNum = dataList[1].length;
             do {
                 var tempobj = dataList[1].pop(); // Time console.log(tempobj.c[0].f); //Content  
-				
-				
-                if (tempobj.c[3] != null) {
-				console.log(tempobj.c[3].v);
-				console.log(CountNum);
-				CountNum--
-                  tablehtml += '<tr><td style="display:none" >'+CountNum+'</td><td>' + tempobj.c[0].f + '</td><td>' + tempobj.c[3].v + '</td></tr>';
+
+
+                if (tempobj.c[3] != null) { //console.log(tempobj.c[3].v);
+                    //console.log(CountNum);
+                    CountNum--
+                    tablehtml += '<tr><td style="display:none" >' + CountNum + '</td><td>' + tempobj.c[0].f + '</td><td>' + tempobj.c[3].v + '</td></tr>';
                 }
 
             } while (dataList[1].length > 0);
-			
-			tablehtml += '</tbody></table>';
-			
-           $('#ResultTable').html(tablehtml);
+
+            tablehtml += '</tbody></table>';
+
+            $('#ResultTable').html(tablehtml);
 
             $('#ResultData').DataTable({
-			 "order": [[ 0, "desc" ]],
+                "order": [
+                    [0, "desc"]
+                ],
                 "dom": '<"top">rt<"bottom"Bfpil><"clear">',
                 "iDisplayLength": 50,
-				buttons: [
-					{
-						text: 'Write New One',
-						action: function ( e, dt, node, config ) {
-							window.location.href = "http://renhk.github.io";// console.log( 'Button activated' );
-						}
-					}
-				]
+                buttons: [{
+                    text: 'Write New One',
+                    action: function(e, dt, node, config) {
+                        window.location.href = "http://renhk.github.io"; // console.log( 'Button activated' );
+                    }
+                }]
             });
+            $('#ResultData').on('page.dt', function() {
+                console.log('change Page');
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 700);
 
+            }).dataTable();
 
         }
     </script>
@@ -100,6 +117,25 @@
         .rowcss {
             padding-left: 1em;
             padding-right: 1em;
+        }
+        
+        a.back-to-top {
+            display: none;
+            width: 30px;
+            height: 30px;
+            text-indent: -9999px;
+            position: fixed;
+            z-index: 999;
+            right: 10px;
+            bottom: 10px;
+            background: #27AE61 url("image/up-arrow.png") no-repeat center 43%;
+            -webkit-border-radius: 15px;
+            -moz-border-radius: 15px;
+            border-radius: 15px;
+        }
+        
+        a:hover.back-to-top {
+            background-color: #000;
         }
     </style>
 </head>
